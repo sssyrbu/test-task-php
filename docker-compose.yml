@@ -1,12 +1,13 @@
 services:
   web:
-    build: .
+    build: ./web
     ports:
       - "8080:80"
     depends_on:
-      - db
+      db:
+        condition: service_started
   db:
-    image: mariadb:latest
+    image: mysql:latest
     environment:
       MYSQL_ROOT_PASSWORD: pass
       MYSQL_DATABASE: users_db
