@@ -21,9 +21,7 @@ try {
 }
 
 $sqlFilePath = "queries/create_table.sql";
-
 $sql = file_get_contents($sqlFilePath);
-
 $pdo->exec($sql);
 
 function insertBtcCandle($data, $pdo) {
@@ -40,14 +38,24 @@ function insertBtcCandle($data, $pdo) {
     $query->execute($insert_data);
 }
 
-// Example usage
-// $data = [
-//     'startTime' => 1720396800000,
-//     'openPrice' => 55825.00000000,
-//     'highPrice' => 57858.50000000,
-//     'lowPrice' => 54269.50000000,
-//     'closePrice' => 57417.50000000
-// ];
+function readBtcCandle($id, $pdo) {
+    $sqlFilePath = "queries/read_from_db.sql";
+    $sqlQuery = file_get_contents($sqlFilePath);
+    $query = $pdo->prepare($sqlQuery);
+    $query->execute(['id' => $id]);
+    $result = $query->fetch(PDO::FETCH_ASSOC);
 
-// echo insertBtcCandle($data, $pdo);
+    return $result;
+}
+
+function deleteAllFromBtcCandle($pdo) {
+    $clearTablePath= "queries/clear_table.sql";
+    $clearTableQuery = file_get_contents($clearTablePath);
+    $clearTableStmt = $pdo->prepare($clearTableQuery);
+    $clearTableStmt->execute();
+    $resetAutoincrementPath = "queries/reset_autoincrement.sql";
+    $resetAutoincrementQuery = file_get_contents($resetAutoincrementPath);
+    $resetAutoincrementStmt = $pdo->prepare($resetAutoincrementQuery);
+    $resetAutoincrementStmt->execute();
+}
 ?>

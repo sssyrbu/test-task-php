@@ -5,5 +5,8 @@ echo "Waiting for the database to be ready..."
 echo "Running bybit.php..."
 php /var/www/html/bybit.php
 
+echo "Starting main...."
+php /var/www/html/main.php
+
 echo "Starting Apache server..."
 apache2-foreground

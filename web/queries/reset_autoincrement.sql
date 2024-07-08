@@ -1,0 +1,1 @@
+ALTER TABLE btc_candle AUTO_INCREMENT = 1;

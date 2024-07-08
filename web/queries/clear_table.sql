@@ -1,0 +1,1 @@
+DELETE FROM btc_candle;

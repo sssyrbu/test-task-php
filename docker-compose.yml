@@ -8,13 +8,16 @@ services:
         condition: service_started
   db:
     image: mysql:latest
+    restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: pass
-      MYSQL_DATABASE: users_db
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: btc
       MYSQL_USER: test
       MYSQL_PASSWORD: pass
     volumes:
-      - db_data:/var/lib/mysql
+      - ./queries/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "3306:3306"
 
 volumes:
   db_data:

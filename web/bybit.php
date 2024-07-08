@@ -1,6 +1,7 @@
 <?php
 // bybit.php
 include "database.php";
+
 $url = "https://api-testnet.bybit.com/v5/market/kline?category=inverse&symbol=BTCUSD&interval=D";
 
 $curl = curl_init();
@@ -15,6 +16,7 @@ if (curl_errno($curl)) {
 } else {
     $data = json_decode($response, true);
     $candles = $data['result']['list'];
+    deleteAllFromBtcCandle($pdo);
     foreach ($candles as $candle) { 
         insertBtcCandle($candle, $pdo);
     }
