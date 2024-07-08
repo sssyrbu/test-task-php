@@ -16,13 +16,12 @@ RUN a2enmod rewrite
 
 COPY . /var/www/html/
 
-COPY entrypoint.sh /entrypoint.sh
+COPY shell-scripts/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-COPY wait-for-it.sh /wait-for-it.sh
+COPY shell-scripts/wait-for-it.sh /wait-for-it.sh
 RUN chmod +x /wait-for-it.sh
 
 EXPOSE 80
 
-# Set the entry point script
 ENTRYPOINT ["/entrypoint.sh"]

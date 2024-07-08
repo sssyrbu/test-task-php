@@ -27,26 +27,27 @@ $sql = file_get_contents($sqlFilePath);
 $pdo->exec($sql);
 
 function insertBtcCandle($data, $pdo) {
-    try {
-        $sqlFilePath = "queries/add_to_db.sql";
-        $sqlQuery = file_get_contents($sqlFilePath);
-        $query = $pdo->prepare($sqlQuery);
-        $query->execute($data);
-
-        return "Data inserted successfully!";
-    } catch (PDOException $e) {
-        return "Error: " . $e->getMessage();
-    }
+    $sqlFilePath = "queries/add_to_db.sql";
+    $sqlQuery = file_get_contents($sqlFilePath);
+    $query = $pdo->prepare($sqlQuery);
+    $insert_data = [
+        'startTime' => $data[0],
+        'openPrice' => $data[1],
+        'highPrice' => $data[2],
+        'lowPrice' => $data[3],
+        'closePrice' => $data[4]
+    ];
+    $query->execute($insert_data);
 }
 
 // Example usage
-$data = [
-    'startTime' => 1720396800000,
-    'openPrice' => 55825.00000000,
-    'highPrice' => 57858.50000000,
-    'lowPrice' => 54269.50000000,
-    'closePrice' => 57417.50000000
-];
+// $data = [
+//     'startTime' => 1720396800000,
+//     'openPrice' => 55825.00000000,
+//     'highPrice' => 57858.50000000,
+//     'lowPrice' => 54269.50000000,
+//     'closePrice' => 57417.50000000
+// ];
 
-echo insertBtcCandle($data, $pdo);
+// echo insertBtcCandle($data, $pdo);
 ?>
