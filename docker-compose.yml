@@ -1,6 +1,6 @@
 services:
   web:
-    build: ./web
+    build: ./
     ports:
       - "8080:80"
     depends_on:
@@ -14,8 +14,6 @@ services:
       MYSQL_DATABASE: btc
       MYSQL_USER: test
       MYSQL_PASSWORD: pass
-    volumes:
-      - ./queries/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "3306:3306"
 
